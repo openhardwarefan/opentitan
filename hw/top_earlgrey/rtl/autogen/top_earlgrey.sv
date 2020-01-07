@@ -31,6 +31,36 @@ module top_earlgrey #(
   output logic        dio_uart_tx_o,
   output logic        dio_uart_tx_en_o,
 
+
+  input                   rx_clk_in_p,
+  input                   rx_clk_in_n,
+  input                   rx_frame_in_p,
+  input                   rx_frame_in_n,
+  input       [ 5:0]      rx_data_in_p,
+  input       [ 5:0]      rx_data_in_n,
+  output                  tx_clk_out_p,
+  output                  tx_clk_out_n,
+  output                  tx_frame_out_p,
+  output                  tx_frame_out_n,
+  output      [ 5:0]      tx_data_out_p,
+  output      [ 5:0]      tx_data_out_n,
+
+  output                  txnrx,
+  output                  enable,
+
+  inout                   gpio_muxout_tx,
+  inout                   gpio_muxout_rx,
+  inout                   gpio_resetb,
+  inout                   gpio_sync,
+  inout                   gpio_en_agc,
+  inout       [ 3:0]      gpio_ctl,
+  inout       [ 7:0]      gpio_status,
+
+  output                  spi_csn,
+  output                  spi_clk,
+  output                  spi_mosi,
+  input                   spi_miso,
+
   input               scanmode_i  // 1 for Scan
 );
 
@@ -489,6 +519,29 @@ module top_earlgrey #(
       .intr_rxoverflow_o  (intr_spi_device_rxoverflow),
       .intr_txunderflow_o (intr_spi_device_txunderflow),
       .scanmode_i   (scanmode_i),
+
+      // ad9361
+
+      .rx_clk_in_p(rx_clk_in_p),
+      .rx_clk_in_n(rx_clk_in_n),
+      .rx_frame_in_p(rx_frame_in_p),
+      .rx_frame_in_n(rx_frame_in_n),
+      .rx_data_in_p(rx_data_in_p),
+      .rx_data_in_n(rx_data_in_n),
+      .tx_clk_out_p(tx_clk_out_p),
+      .tx_clk_out_n(tx_clk_out_n),
+      .tx_frame_out_p(tx_frame_out_p),
+      .tx_frame_out_n(tx_frame_out_n),
+      .tx_data_out_p(tx_data_out_p),
+      .tx_data_out_n(tx_data_out_n),
+      
+      .enable(enable),
+      .txnrx(txnrx),
+
+      .spi_csn(spi_csn),
+      .spi_clk(spi_clk),
+      .spi_mosi(spi_mosi),
+      .spi_miso(spi_miso),
 
       .clk_i (fixed_clk),
       .rst_ni (spi_device_rst_n)

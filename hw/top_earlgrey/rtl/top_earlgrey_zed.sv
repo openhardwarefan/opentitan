@@ -18,6 +18,36 @@ module top_earlgrey_zed (
   // UART interface
   input               IO_URX,
   output              IO_UTX,
+
+  input                   rx_clk_in_p,
+  input                   rx_clk_in_n,
+  input                   rx_frame_in_p,
+  input                   rx_frame_in_n,
+  input       [ 5:0]      rx_data_in_p,
+  input       [ 5:0]      rx_data_in_n,
+  output                  tx_clk_out_p,
+  output                  tx_clk_out_n,
+  output                  tx_frame_out_p,
+  output                  tx_frame_out_n,
+  output      [ 5:0]      tx_data_out_p,
+  output      [ 5:0]      tx_data_out_n,
+
+  output                  txnrx,
+  output                  enable,
+
+  inout                   gpio_muxout_tx,
+  inout                   gpio_muxout_rx,
+  inout                   gpio_resetb,
+  inout                   gpio_sync,
+  inout                   gpio_en_agc,
+  inout       [ 3:0]      gpio_ctl,
+  inout       [ 7:0]      gpio_status,
+
+  output                  spi_csn,
+  output                  spi_clk,
+  output                  spi_mosi,
+  input                   spi_miso,
+
   // GPIO x 16 interface
   inout               IO_GP0,
   inout               IO_GP1,
@@ -71,6 +101,34 @@ module top_earlgrey_zed (
     .dio_spi_device_mosi_i    (cio_spi_device_mosi_p2d),
     .dio_spi_device_miso_o    (cio_spi_device_miso_d2p),
     .dio_spi_device_miso_en_o (cio_spi_device_miso_en_d2p),
+
+    .rx_clk_in_p(rx_clk_in_p),
+    .rx_clk_in_n(rx_clk_in_n),
+    .rx_frame_in_p(rx_frame_in_p),
+    .rx_frame_in_n(rx_frame_in_n),
+    .rx_data_in_p(rx_data_in_p),
+    .rx_data_in_n(rx_data_in_n),
+    .tx_clk_out_p(tx_clk_out_p),
+    .tx_clk_out_n(tx_clk_out_n),
+    .tx_frame_out_p(tx_frame_out_p),
+    .tx_frame_out_n(tx_frame_out_n),
+    .tx_data_out_p(tx_data_out_p),
+    .tx_data_out_n(tx_data_out_n),
+
+    .txnrx(txnrx),
+    .enable(enable),
+
+    .gpio_muxout_tx(gpio_muxout_tx),
+    .gpio_muxout_rx(gpio_muxout_rx),
+    .gpio_resetb(gpio_resetb),
+    .gpio_sync(gpio_sync),
+    .gpio_en_agc(gpio_en_agc),
+    .gpio_ctl(gpio_ctl),
+    .gpio_status(gpio_status),
+    .spi_csn(spi_csn),
+    .spi_clk(spi_clk),
+    .spi_mosi(spi_mosi),
+    .spi_miso(spi_miso),
 
     .scanmode_i                   (1'b0) // 1 for Scan
   );

@@ -37,23 +37,23 @@ set_false_path -from [get_ports IO_RST_N]
 set_property -dict {PACKAGE_PIN Y9 IOSTANDARD LVCMOS33} [get_ports {IO_CLK}];
 
 ## Reset
-set_property -dict {PACKAGE_PIN P16 IOSTANDARD LVCMOS18} [get_ports {IO_RST_N}];
+set_property -dict {PACKAGE_PIN P16 IOSTANDARD LVCMOS25} [get_ports {IO_RST_N}];
 
 ## Buttons
-set_property -dict {PACKAGE_PIN R16 IOSTANDARD LVCMOS18} [get_ports btnu_i];
-set_property -dict {PACKAGE_PIN N15 IOSTANDARD LVCMOS18} [get_ports btnr_i];
-set_property -dict {PACKAGE_PIN R18 IOSTANDARD LVCMOS18} [get_ports btnd_i];
-set_property -dict {PACKAGE_PIN T18 IOSTANDARD LVCMOS18} [get_ports btnl_i];
+set_property -dict {PACKAGE_PIN R16 IOSTANDARD LVCMOS25} [get_ports {btnu_i}];
+set_property -dict {PACKAGE_PIN N15 IOSTANDARD LVCMOS25} [get_ports {btnr_i}];
+set_property -dict {PACKAGE_PIN R18 IOSTANDARD LVCMOS25} [get_ports {btnd_i}];
+set_property -dict {PACKAGE_PIN T18 IOSTANDARD LVCMOS25} [get_ports {btnl_i}];
 
 ## PMOD A
-set_property -dict {PACKAGE_PIN Y11 IOSTANDARD LVCMOS33} [get_ports pad_jtag_tms];
-set_property -dict {PACKAGE_PIN AA11 IOSTANDARD LVCMOS33} [get_ports pad_jtag_tdi];
-set_property -dict {PACKAGE_PIN Y10 IOSTANDARD LVCMOS33} [get_ports pad_jtag_tdo];
-set_property -dict {PACKAGE_PIN AA9 IOSTANDARD LVCMOS33} [get_ports pad_jtag_tck];
+set_property -dict {PACKAGE_PIN Y11 IOSTANDARD LVCMOS33} [get_ports {pad_jtag_tms}];
+set_property -dict {PACKAGE_PIN AA11 IOSTANDARD LVCMOS33} [get_ports {pad_jtag_tdi}];
+set_property -dict {PACKAGE_PIN Y10 IOSTANDARD LVCMOS33} [get_ports {pad_jtag_tdo}];
+set_property -dict {PACKAGE_PIN AA9 IOSTANDARD LVCMOS33} [get_ports {pad_jtag_tck}];
 set_property -dict {PACKAGE_PIN AB11 IOSTANDARD LVCMOS33} [get_ports {IO_URX}]; # pad_uart_rx
 set_property -dict {PACKAGE_PIN AB10 IOSTANDARD LVCMOS33} [get_ports {IO_UTX}]; # pad_uart_tx
-set_property -dict {PACKAGE_PIN AB9 IOSTANDARD LVCMOS33} [get_ports pad_uart_rts];
-set_property -dict {PACKAGE_PIN AA8 IOSTANDARD LVCMOS33} [get_ports pad_uart_cts];
+set_property -dict {PACKAGE_PIN AB9 IOSTANDARD LVCMOS33} [get_ports {pad_uart_rts}];
+set_property -dict {PACKAGE_PIN AA8 IOSTANDARD LVCMOS33} [get_ports {pad_uart_cts}];
 
 ## PMOD B
 set_property -dict {PACKAGE_PIN W12 IOSTANDARD LVCMOS33} [get_ports {IO_DPS3}];  # spi_device_csb_i and jtag_tms]
@@ -76,14 +76,14 @@ set_property -dict {PACKAGE_PIN U19 IOSTANDARD LVCMOS33} [get_ports {IO_GP14}];
 set_property -dict {PACKAGE_PIN U14 IOSTANDARD LVCMOS33} [get_ports {IO_GP15}];
 
 ## Switches
-set_property -dict {PACKAGE_PIN F22 IOSTANDARD LVCMOS18} [get_ports {IO_GP0}];
-set_property -dict {PACKAGE_PIN G22 IOSTANDARD LVCMOS18} [get_ports {IO_GP1}];
-set_property -dict {PACKAGE_PIN H22 IOSTANDARD LVCMOS18} [get_ports {IO_GP2}];
-set_property -dict {PACKAGE_PIN F21 IOSTANDARD LVCMOS18} [get_ports {IO_GP3}];
-set_property -dict {PACKAGE_PIN H19 IOSTANDARD LVCMOS18} [get_ports {IO_GP4}];
-set_property -dict {PACKAGE_PIN H18 IOSTANDARD LVCMOS18} [get_ports {IO_GP5}];
-set_property -dict {PACKAGE_PIN H17 IOSTANDARD LVCMOS18} [get_ports {IO_GP6}];
-set_property -dict {PACKAGE_PIN M15 IOSTANDARD LVCMOS18} [get_ports {IO_GP7}];
+set_property -dict {PACKAGE_PIN F22 IOSTANDARD LVCMOS25} [get_ports {IO_GP0}];
+set_property -dict {PACKAGE_PIN G22 IOSTANDARD LVCMOS25} [get_ports {IO_GP1}];
+set_property -dict {PACKAGE_PIN H22 IOSTANDARD LVCMOS25} [get_ports {IO_GP2}];
+set_property -dict {PACKAGE_PIN F21 IOSTANDARD LVCMOS25} [get_ports {IO_GP3}];
+set_property -dict {PACKAGE_PIN H19 IOSTANDARD LVCMOS25} [get_ports {IO_GP4}];
+set_property -dict {PACKAGE_PIN H18 IOSTANDARD LVCMOS25} [get_ports {IO_GP5}];
+set_property -dict {PACKAGE_PIN H17 IOSTANDARD LVCMOS25} [get_ports {IO_GP6}];
+set_property -dict {PACKAGE_PIN M15 IOSTANDARD LVCMOS25} [get_ports {IO_GP7}];
 
 # constraints
 # ad9361
@@ -146,5 +146,5 @@ set_property  -dict {PACKAGE_PIN  D21  IOSTANDARD LVCMOS25} [get_ports spi_miso]
 
 # clocks
 
-create_clock -name rx_clk       -period  4 [get_ports rx_clk_in_p]
+create_clock -name rx_clk       -period  8 [get_ports rx_clk_in_p]
 

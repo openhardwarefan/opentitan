@@ -384,10 +384,10 @@
       alert_list:
       [
         {
+          async: 0
           name: msg_push_sha_disabled
           width: 1
           type: alert
-          async: 0
         }
       ]
       scan: "false"
@@ -1159,10 +1159,10 @@
   alert:
   [
     {
+      async: 0
       name: hmac_msg_push_sha_disabled
       width: 1
       type: alert
-      async: 0
     }
   ]
   pinmux:
@@ -1198,9 +1198,6 @@
     dio:
     [
       {
-        name: spi_device_sck
-        width: 1
-        type: input
         pad:
         [
           {
@@ -1208,11 +1205,11 @@
             index: 0
           }
         ]
-      }
-      {
-        name: spi_device_csb
+        name: spi_device_sck
         width: 1
         type: input
+      }
+      {
         pad:
         [
           {
@@ -1220,11 +1217,11 @@
             index: 1
           }
         ]
-      }
-      {
-        name: spi_device_mosi
+        name: spi_device_csb
         width: 1
         type: input
+      }
+      {
         pad:
         [
           {
@@ -1232,11 +1229,11 @@
             index: 2
           }
         ]
+        name: spi_device_mosi
+        width: 1
+        type: input
       }
       {
-        name: spi_device_miso
-        width: 1
-        type: output
         pad:
         [
           {
@@ -1244,11 +1241,11 @@
             index: 3
           }
         ]
+        name: spi_device_miso
+        width: 1
+        type: output
       }
       {
-        name: uart_rx
-        width: 1
-        type: input
         pad:
         [
           {
@@ -1256,11 +1253,11 @@
             index: 0
           }
         ]
+        name: uart_rx
+        width: 1
+        type: input
       }
       {
-        name: uart_tx
-        width: 1
-        type: output
         pad:
         [
           {
@@ -1268,6 +1265,9 @@
             index: 1
           }
         ]
+        name: uart_tx
+        width: 1
+        type: output
       }
     ]
     inputs: []
