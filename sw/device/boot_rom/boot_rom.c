@@ -26,6 +26,32 @@ extern struct {
   void (*entry)(void);
 } _flash_header;
 
+inline uint64_t ibex_mcycle_read() {
+  uint32_t cycle_low = 0;
+  uint32_t cycle_high = 0;
+  uint32_t cycle_high_2 = 0;
+  asm volatile(
+      "read%=:"
+      "  csrr %0, mcycleh;"     // Read |mcycleh|.
+      "  csrr %1, mcycle;"      // Read |mcycle|.
+      "  csrr %2, mcycleh;"     // Read |mcycleh| again.
+      "  bne  %0, %2, read%=;"  // Try again if |mcycle| overflowed before
+                                // reading |mcycleh|.
+      : "+r"(cycle_high), "=r"(cycle_low), "+r"(cycle_high_2)
+      :);
+  return (uint64_t)cycle_high << 32 | cycle_low;
+}
+
+const uint32_t kIbexClockFreqHz_bootrom = 50 * 1000 * 1000;  // 50 MHz
+
+
+void usleep_bootrom(uint32_t usec) {
+  uint64_t cycles = (uint64_t)kIbexClockFreqHz_bootrom * usec / 1000000;
+  uint64_t start = ibex_mcycle_read();
+  while ((ibex_mcycle_read() - start) < cycles) {
+  }
+}
+
 void _boot_start(void) {
   pinmux_init();
   uart_init(kUartBaudrate);
@@ -39,6 +65,22 @@ void _boot_start(void) {
   }
 
   LOG_INFO("Boot ROM initialisation has completed, jump into flash!\n");
+
+  gpio_init(0xFF00);
+  // Give a LED pattern as startup indicator for 5 seconds
+  gpio_write_all(0xFF00);  // all LEDs on
+  
+  do 
+  {
+    for (int i = 0; i < 32; i++) {
+    usleep_bootrom(100 * 1000);  // 100 ms
+
+    gpio_write_bit(8 + (i % 8), (i / 8));
+
+    }
+  }while(1);
+
+  // while(1);
 
   // Jump into flash. At this point, the contents of the flash binary have been
   // verified, and we can transfer control directly to it. It is the
