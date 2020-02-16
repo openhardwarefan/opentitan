@@ -68,20 +68,20 @@ set_property -dict {PACKAGE_PIN Y11 IOSTANDARD LVCMOS33} [get_ports {IO_DPS3}]; 
 set_property -dict {PACKAGE_PIN AA11 IOSTANDARD LVCMOS33} [get_ports {IO_DPS1}]; # spi_device_mosi_i and jtag_tdi]
 set_property -dict {PACKAGE_PIN Y10 IOSTANDARD LVCMOS33} [get_ports {IO_DPS2}];  # spi_device_miso_o and jtag_tdo]
 set_property -dict {PACKAGE_PIN AA9 IOSTANDARD LVCMOS33} [get_ports {IO_DPS0}]; # spi_device_sck_i and jtag_tck]
-set_property -dict {PACKAGE_PIN AB11 IOSTANDARD LVCMOS33} [get_ports {IO_URX}]; # pad_uart_rx
-set_property -dict {PACKAGE_PIN AB10 IOSTANDARD LVCMOS33} [get_ports {IO_UTX}]; # pad_uart_tx
-## set_property -dict {PACKAGE_PIN AB9 IOSTANDARD LVCMOS33} [get_ports {pad_uart_rts}];
-## set_property -dict {PACKAGE_PIN AA8 IOSTANDARD LVCMOS33} [get_ports {pad_uart_cts}];
+set_property -dict {PACKAGE_PIN AB11 IOSTANDARD LVCMOS33} [get_ports {IO_DPS4}]; # jtag_TRST_N
+set_property -dict {PACKAGE_PIN AB10 IOSTANDARD LVCMOS33 PULLTYPE PULLUP} [get_ports {IO_DPS5}]; # jtag_SRST_N
+set_property -dict {PACKAGE_PIN AB9 IOSTANDARD LVCMOS33 PULLTYPE PULLDOWN} [get_ports {IO_DPS6}]; #Muxed select: 0 = JTAG, 1 = spi_device
+set_property -dict {PACKAGE_PIN AA8 IOSTANDARD LVCMOS33 PULLTYPE PULLDOWN} [get_ports {IO_DPS7}]; #Bootstrap pin for software
 
 ## PMOD B
 set_property -dict {PACKAGE_PIN W12 IOSTANDARD LVCMOS33 DRIVE 8 SLEW FAST } [get_ports { IO_USB_DP0 }];
 set_property -dict {PACKAGE_PIN W11 IOSTANDARD LVCMOS33 DRIVE 8 SLEW FAST } [get_ports { IO_USB_DN0 }];
 set_property -dict {PACKAGE_PIN V10 IOSTANDARD LVCMOS33 } [get_ports { IO_USB_PULLUP0 }]; 
 set_property -dict {PACKAGE_PIN W8 IOSTANDARD LVCMOS33 } [get_ports { IO_USB_SENSE0 }];
-set_property -dict {PACKAGE_PIN V12 IOSTANDARD LVCMOS33} [get_ports {IO_DPS4}]; # jtag_TRST_N
-set_property -dict {PACKAGE_PIN W10 IOSTANDARD LVCMOS33 PULLTYPE PULLUP} [get_ports {IO_DPS5}]; # jtag_SRST_N
-set_property -dict {PACKAGE_PIN V9 IOSTANDARD LVCMOS33 PULLTYPE PULLDOWN} [get_ports {IO_DPS6}]; #Muxed select: 0 = JTAG, 1 = spi_device
-set_property -dict {PACKAGE_PIN V8 IOSTANDARD LVCMOS33 PULLTYPE PULLDOWN} [get_ports {IO_DPS7}]; #Bootstrap pin for software
+set_property -dict {PACKAGE_PIN V12 IOSTANDARD LVCMOS33} [get_ports {IO_URX}]; # pad_uart_rx
+set_property -dict {PACKAGE_PIN W10 IOSTANDARD LVCMOS33} [get_ports {IO_UTX}]; # pad_uart_tx
+## set_property -dict {PACKAGE_PIN V9 IOSTANDARD LVCMOS33 } [get_ports {pad_uart_rts}];
+## set_property -dict {PACKAGE_PIN V8 IOSTANDARD LVCMOS33 } [get_ports {pad_uart_cts}];
 
 ## LEDs
 set_property -dict {PACKAGE_PIN T22 IOSTANDARD LVCMOS33} [get_ports {IO_GP8}];
