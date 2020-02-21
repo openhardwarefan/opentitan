@@ -52,6 +52,15 @@ void usleep_bootrom(uint32_t usec) {
   }
 }
 
+inline uint32_t mmio_region_read32_bootrom(uint32_t base, uint32_t offset) {
+  return ((volatile uint32_t *)base)[offset / sizeof(uint32_t)];
+}
+
+#define GPIO0_BASE_ADDR 0x40010000u
+
+static dif_gpio_t gpio;
+
+
 void _boot_start(void) {
   pinmux_init();
   uart_init(kUartBaudrate);
@@ -66,18 +75,44 @@ void _boot_start(void) {
 
   LOG_INFO("Boot ROM initialisation has completed, jump into flash!\n");
 
-  gpio_init(0xFF00);
-  // Give a LED pattern as startup indicator for 5 seconds
-  gpio_write_all(0xFF00);  // all LEDs on
+  // Enable GPIO: 0-7 and 16 is input, 8-15 is output
+  dif_gpio_config_t gpio_config = {.base_addr =
+                                       mmio_region_from_addr(GPIO0_BASE_ADDR)};
+  dif_gpio_init(&gpio_config, &gpio);
+  dif_gpio_output_mode_all_set(&gpio, 0xFF00);
   
+  // Give a LED pattern as startup indicator for 5 seconds
+  dif_gpio_all_write(&gpio, 0xFF00);  // all LEDs on
+ 
   do 
   {
-    for (int i = 0; i < 32; i++) {
-    usleep_bootrom(100 * 1000);  // 100 ms
+  // uint32_t uartctrl = mmio_region_read32_bootrom(0x40000000, 0x0c);
 
-    gpio_write_bit(8 + (i % 8), (i / 8));
+      for (int i = 0; i < 32; i++) {
+        usleep_bootrom(100 * 1000);  // 100 ms
 
-    }
+        dif_gpio_pin_write(&gpio, 8 + (i % 8), (i / 8) % 2);
+      }
+
+    // dif_gpio_output_mode_all_set(&gpio, (uartctrl & 0xFF) << 8);  // all LEDs on
+
+    // usleep_bootrom(5000 * 1000);  // 100 ms
+
+    // dif_gpio_output_mode_all_set(&gpio, ((uartctrl >> 8) & 0xFF) << 8);  // all LEDs on
+
+    // usleep_bootrom(5000 * 1000);  // 100 ms
+
+    // dif_gpio_output_mode_all_set(&gpio, ((uartctrl >> 16) & 0xFF) << 8);  // all LEDs on
+
+    // usleep_bootrom(5000 * 1000);  // 100 ms
+
+
+    // dif_gpio_output_mode_all_set(&gpio, ((uartctrl >> 24) & 0xFF) << 8);  // all LEDs on
+
+    // usleep_bootrom(5000 * 1000);  // 100 ms
+
+    // uart_send_str((char *)chip_info);
+
   }while(1);
 
   // while(1);
